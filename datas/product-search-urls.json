@@ -1,0 +1,29 @@
+{ 
+  "data": [
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=shoes" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=shirts" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=jeans" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=skirts" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=shorts" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=swimwear" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=outerwear" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=accessories" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=underwear" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=socks" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=jacket" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=pants" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=dress" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=sweater" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=tops" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=footwear" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=wedding" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=casual" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=trousers" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=coats" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=ponchos" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=knee" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=badges" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=children" },
+    { "url": "https://shopping.naver.com/window/search/fashion-group?q=arm" }
+  ]
+}
