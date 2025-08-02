@@ -6,6 +6,10 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+app.get('/', (req: Request, res: Response) => {
+    res.send('Scraping Naver Smartstore API');
+});
+
 app.get('/naver', async (req: Request, res: Response) => {
     const productUrl = req.query.productUrl as string;
 

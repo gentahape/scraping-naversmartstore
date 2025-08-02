@@ -30,6 +30,11 @@ const httpsAgent = new https.Agent({
 
 export async function scraper(url: string) {
   try {
+    const productUrl = new URL(url);
+    if (productUrl.hostname !== 'shopping.naver.com') {
+      throw new Error('Invalid product URL. URL must be from "shopping.naver.com".');
+    }
+
     const response = await axios.get(url, {
       proxy: {
         protocol: 'https',
@@ -46,6 +51,7 @@ export async function scraper(url: string) {
         rejectUnauthorized: false,
       },
     });
+    
     return response.data;
   } catch (error) {
     console.error(`Error when scraping: ${error}`);
