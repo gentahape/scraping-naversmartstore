@@ -1,5 +1,4 @@
 import axios from "axios"
-import { load } from "cheerio"
 import https from 'https';
 
 const userAgents = [
@@ -29,7 +28,7 @@ const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
 });
 
-async function fetchUrl(url: string) {
+export async function scraper(url: string) {
   try {
     const response = await axios.get(url, {
       proxy: {
@@ -49,34 +48,7 @@ async function fetchUrl(url: string) {
     });
     return response.data;
   } catch (error) {
-    console.error(`[SCRAPER] Error using proxy: ${error}`);
-  }
-}
-
-export async function scrapping(productUrl: string): Promise<any> {
-  try {
-    const response = await fetchUrl(productUrl);
-    const $ = load(response)
-    const firstScriptEl = $('script').first().text();
-    const preloadState = "window.__PRELOADED_STATE__=";
-    
-    const findPreloadState = firstScriptEl.indexOf(preloadState);
-    if (findPreloadState === -1) {
-      throw new Error("Variable __PRELOADED_STATE__ is not found!");
-    }
-
-    const preloadStateJson = firstScriptEl.replace(preloadState, '');
-    const result = JSON.parse(preloadStateJson);
-
-    return result;
-
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error(`[SCRAPER] Error when getting URL: ${error.message}`);
-      console.error(`[SCRAPER] Status Code: ${error.response?.status}`);
-    } else {
-      console.error(`[SCRAPER] Error when processing data: ${error}`);
-    }
+    console.error(`Error when scraping: ${error}`);
     throw error;
   }
 }

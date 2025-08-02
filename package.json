@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx ts-node api.ts",
-    "start:scraping-product-search": "npx ts-node scraping-product-search.ts"
+    "start": "ts-node src/api.ts",
+    "start:scraping-product-search": "ts-node src/scraping-product-search.ts"
   },
   "keywords": [],
   "author": "",

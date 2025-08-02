@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { scrapping } from './scraper';
+import { scrappingProductDetail } from './scraping-product-detail';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,14 +11,14 @@ app.get('/naver', async (req: Request, res: Response) => {
 
     if (!productUrl) {
         return res.status(400).json({
-            error: 'Query parameter of "productUrl" is required.',
-            example: `/naver?productUrl=https://smartstore.naver.com/minibeans/products/8768399445`
+            error: '[API] Query parameter of "productUrl" is required.',
+            example: `/naver?productUrl=https://shopping.naver.com/window-products/style/7743753825`
         });
     }
 
     try {
         const startTime = Date.now();
-        const data = await scrapping(productUrl);
+        const data = await scrappingProductDetail(productUrl);
         const duration = Date.now() - startTime;
 
         res.status(200).json({
