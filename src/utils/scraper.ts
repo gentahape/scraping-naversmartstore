@@ -28,33 +28,52 @@ const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
 });
 
-export async function scraper(url: string) {
-  try {
-    const productUrl = new URL(url);
-    if (productUrl.hostname !== 'shopping.naver.com') {
-      throw new Error('Invalid product URL. URL must be from "shopping.naver.com".');
-    }
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-    const response = await axios.get(url, {
-      proxy: {
-        protocol: 'https',
-        host: proxyHost,
-        port: proxyPort,
-        auth: {
-          username: proxyUsername,
-          password: proxyPassword,
+export async function scraper(url: string) {
+  const MAX_RETRIES = 3;
+  
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+
+      if (attempt > 1) {
+        const randomDelay = Math.random() * 1000 + 500;
+        await delay(randomDelay);
+      }
+
+      const productUrl = new URL(url);
+      if (productUrl.hostname !== 'shopping.naver.com') {
+        throw new Error('Invalid product URL. URL must be from "shopping.naver.com".');
+      }
+
+      const response = await axios.get(url, {
+        proxy: {
+          protocol: 'https',
+          host: proxyHost,
+          port: proxyPort,
+          auth: {
+            username: proxyUsername,
+            password: proxyPassword,
+          },
         },
-      },
-      httpsAgent: httpsAgent,
-      headers: {
-        'User-Agent': getRandomUserAgent(),
-        rejectUnauthorized: false,
-      },
-    });
-    
-    return response.data;
-  } catch (error) {
-    console.error(`Error when scraping: ${error}`);
-    throw error;
+        httpsAgent: httpsAgent,
+        headers: {
+          'User-Agent': getRandomUserAgent(),
+          rejectUnauthorized: false,
+        },
+        timeout: 15000,
+      });
+      
+      return response.data;
+    } catch (error) {
+      console.warn(`[SCRAPER] Trying ${attempt} for ${url} failed. Error: ${error}`);
+      if (attempt === MAX_RETRIES) {
+          console.error(`[SCRAPER] Failed after ${MAX_RETRIES} attempts for ${url}.`);
+          throw error;
+      }
+      const backoffTime = Math.pow(2, attempt) * 1000;
+      await delay(backoffTime);
+    }
   }
+  throw new Error(`Failed to retrieve data for ${url}`);
 }

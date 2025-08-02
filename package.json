@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node src/api.ts",
-    "start:scraping-product-search": "ts-node src/scraping-product-search.ts"
+    "start:scraping-product-search": "ts-node src/scraping-product-search.ts",
+    "start:testing": "ts-node src/testing.ts"
   },
   "keywords": [],
   "author": "",

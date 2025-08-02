@@ -7,42 +7,41 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('Scraping Naver Smartstore API');
+  res.send('Scraping Naver Smartstore API');
 });
 
 app.get('/naver', async (req: Request, res: Response) => {
-    const productUrl = req.query.productUrl as string;
+  const productUrl = req.query.productUrl as string;
 
-    if (!productUrl) {
-        return res.status(400).json({
-            error: '[API] Query parameter of "productUrl" is required.',
-            example: `/naver?productUrl=https://shopping.naver.com/window-products/style/7743753825`
-        });
-    }
+  if (!productUrl) {
+    return res.status(400).json({
+      error: '[API] Query parameter of "productUrl" is required.',
+      example: `/naver?productUrl=https://shopping.naver.com/window-products/style/7743753825`
+    });
+  }
 
-    try {
-        const startTime = Date.now();
-        const data = await scrappingProductDetail(productUrl);
-        const duration = Date.now() - startTime;
+  try {
+    const startTime = Date.now();
+    const data = await scrappingProductDetail(productUrl);
+    const duration = Date.now() - startTime;
 
-        res.status(200).json({
-            success: true,
-            processingTime: `${duration}ms`,
-            source: productUrl,
-            data: data,
-        });
-
-    } catch (error) {
-        console.error(`[API] Error when scrapping ${productUrl}:`, error);
-        res.status(500).json({
-            success: false,
-            source: productUrl,
-            error: '[API] Failed to process the request.',
-        });
-    }
+    res.status(200).json({
+      success: true,
+      processingTime: `${duration}ms`,
+      source: productUrl,
+      data: data,
+    });
+  } catch (error) {
+    console.error(`[API] Error when scrapping ${productUrl}:`, error);
+    res.status(500).json({
+      success: false,
+      source: productUrl,
+      error: '[API] Failed to process the request.',
+    });
+  }
 });
 
 app.listen(PORT, () => {
-    console.log(`Server API running on http://localhost:${PORT}`);
-    console.log(`API Endpoint: http://localhost:${PORT}/naver?productUrl=YOUR_DETAIL_PRODUCT_URL`);
+  console.log(`Server API running on http://localhost:${PORT}`);
+  console.log(`API Endpoint: http://localhost:${PORT}/naver?productUrl=YOUR_DETAIL_PRODUCT_URL`);
 });
