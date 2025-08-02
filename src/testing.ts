@@ -1,7 +1,7 @@
 import axios from 'axios';
 import fs from 'fs';
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3000';
 const PRODUCT_DETAIL_URLS = './datas/product-detail-urls.json';
 const TEST_DURATION_MINUTES = 60;
 const CONCURRENT_REQUESTS = 5;
