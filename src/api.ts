@@ -8,10 +8,30 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+/**
+ * Handles GET requests to the root URL ('/').
+ * 
+ * @param {Request} req - The incoming HTTP request.
+ * @param {Response} res - The outgoing HTTP response.
+ * @description Sends a response with a message indicating that the API is scraping Naver Smartstore data.
+ */
 app.get('/', (req: Request, res: Response) => {
   res.send('Scraping Naver Smartstore API');
 });
 
+/**
+ * Handles GET requests to the '/naver' endpoint.
+ * 
+ * @param {Request} req - The incoming HTTP request.
+ * @param {Response} res - The outgoing HTTP response.
+ * @description Scrapes product details from Naver Smartstore using the provided product URL.
+ * 
+ * @query {string} productUrl - The URL of the product to scrape (required).
+ * @example /naver?productUrl=https://shopping.naver.com/window-products/style/7743753825
+ * 
+ * @returns {object} JSON response with the scraped data, processing time, and source URL.
+ * @throws {Error} If the request fails, returns a JSON error response with a 500 status code.
+ */
 app.get('/naver', async (req: Request, res: Response) => {
   const productUrl = req.query.productUrl as string;
 
@@ -43,6 +63,13 @@ app.get('/naver', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Starts the server and listens on the specified port.
+ * 
+ * @param {number} PORT - The port number to listen on.
+ * 
+ * @description Logs a message to the console indicating that the server is running and provides the API endpoint URL.
+ */
 app.listen(PORT, () => {
   console.log(`Server API running on http://localhost:${PORT}`);
   console.log(`API Endpoint: http://localhost:${PORT}/naver?productUrl=YOUR_DETAIL_PRODUCT_URL`);

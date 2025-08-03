@@ -23,6 +23,19 @@ interface TestStats {
   totalLatency: number;
 }
 
+/**
+ * Executes a load test on a list of product detail URLs.
+ *
+ * This function reads URLs from a JSON file and performs HTTP GET requests
+ * concurrently to test the API's performance under load. The test runs for
+ * a specified duration and collects statistics on total requests, successful
+ * requests, failed requests, and total latency. The results are printed
+ * to the console upon completion.
+ *
+ * @throws Will log an error message if the JSON file cannot be read or parsed,
+ *         or if the file is not found.
+ */
+
 async function runTest() {
   console.log('Starting to test...');
 
@@ -57,8 +70,25 @@ async function runTest() {
   const testEndTime = Date.now() + TEST_DURATION_MINUTES * 60 * 1000;
   let urlIndex = 0;
 
+  if (API_BASE_URL === 'http://13.215.161.186:5000') {
+    console.log(`Testing in production with API URL ${API_BASE_URL}.`);
+  }
+  
   console.log(`Testing will be running for ${TEST_DURATION_MINUTES} minutes.`);
 
+  /**
+   * A worker function that repeatedly sends requests to the API to test its performance.
+   *
+   * The function will continue to run until the test end time is reached.
+   *
+   * The function will:
+   * - Get the next URL from the list of product detail URLs.
+   * - Send a GET request to the API with the URL as a query parameter.
+   * - Record the latency of the request.
+   * - If the request is successful, increment the successful requests count and add the latency to the total latency.
+   * - If the request fails, increment the failed requests count.
+   * - Increment the total requests count.
+   */
   const worker = async () => {
     while (Date.now() < testEndTime) {
       const targetUrl = urls[urlIndex % urls.length];
@@ -100,6 +130,18 @@ async function runTest() {
   printFinalReport(stats);
 }
 
+  /**
+   * Prints the current progress of the load test to the console.
+   *
+   * This function is called every 5 seconds while the load test is running.
+   * It prints the total number of requests sent, the number of successful requests,
+   * the number of failed requests, the error rate, and the average latency.
+   *
+   * The error rate is calculated as the percentage of failed requests out of the total number of requests.
+   * The average latency is calculated as the total latency divided by the number of successful requests.
+   *
+   * @param {TestStats} stats - The object containing the test statistics.
+   */
 function printProgress(stats: TestStats) {
   const errorRate = stats.totalRequests > 0 ? (stats.failedRequests / stats.totalRequests) * 100 : 0;
   const avgLatency = stats.successfulRequests > 0 ? stats.totalLatency / stats.successfulRequests : 0;
@@ -108,6 +150,15 @@ function printProgress(stats: TestStats) {
   );
 }
 
+  /**
+   * Prints the final report of the load test to the console.
+   *
+   * The report includes the total number of requests sent, the number of successful requests,
+   * the number of failed requests, the error rate, and the average latency.
+   * The report also indicates whether the test met the performance criteria.
+   *
+   * @param {TestStats} stats - The object containing the test statistics.
+   */
 function printFinalReport(stats: TestStats) {
   console.log('\n\n==================== REPORT ====================');
   const errorRate = stats.totalRequests > 0 ? (stats.failedRequests / stats.totalRequests) * 100 : 0;

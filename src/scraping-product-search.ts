@@ -10,6 +10,19 @@ interface JsonStructure {
   data: UrlEntry[];
 }
 
+/**
+ * Saves new product detail URLs to a JSON file.
+ *
+ * This function reads an existing JSON file to retrieve current data, adds new URLs to it, 
+ * and writes the updated data back to the file. If the file does not exist or is invalid, 
+ * a new file will be created with the new URLs.
+ *
+ * @param {string[]} newUrls - An array of new product detail URLs to be added.
+ * @param {string} filePath - The file path where the URLs should be saved.
+ *
+ * @throws Will throw an error if the file cannot be written.
+ */
+
 function saveUrlsToFileJson(newUrls: string[], filePath: string): void {
   let existingData: JsonStructure = { data: [] };
   try {
@@ -38,6 +51,15 @@ function saveUrlsToFileJson(newUrls: string[], filePath: string): void {
   }
 }
 
+  /**
+   * Scrapes product detail URLs from a product search page.
+   *
+   * @param {string} url - The URL of the product search page to scrape.
+   *
+   * @throws Will throw an error if the scraper fails to retrieve data after 3 attempts.
+   * @throws Will throw an error if the scraper fails to retrieve data from the page.
+   * @throws Will throw an error if the scraper fails to save the URLs to a file.
+   */
 async function scrapingProductSearch(url: string) {
   try {
   
@@ -76,6 +98,15 @@ async function scrapingProductSearch(url: string) {
   }
 }
 
+  /**
+   * Main function to scrape product detail URLs from product search pages.
+   *
+   * This function reads product search URLs from a JSON file, scrapes the product detail URLs from each page,
+   * and saves the URLs to a new JSON file.
+   *
+   * @throws Will throw an error if the scraper fails to retrieve data from any of the pages.
+   * @throws Will throw an error if the scraper fails to save the URLs to a file.
+   */
 async function main() {
   const productSearchUrls = require('../datas/product-search-urls.json')
   const urls = productSearchUrls.data.map((item: any) => item);
