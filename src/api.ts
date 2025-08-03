@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import { scrappingProductDetail } from './scraping-product-detail';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;

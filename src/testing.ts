@@ -1,5 +1,7 @@
 import axios from 'axios';
 import fs from 'fs';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3000';
 const PRODUCT_DETAIL_URLS = './datas/product-detail-urls.json';

@@ -4,6 +4,10 @@
 - <b>Adjust</b> file `.env` with following:
   - <b>PORT</b> = Fill in the port to be used (default: 3000)
   - <b>API_BASE_URL</b> = REST API URL address to receive product details (default: http://localhost:3000)
+  - <b>PROXY_HOST</b> = Fill Hostname for proxy to be used (the value appears in the video and body email)
+  - <b>PROXY_PORT</b> = Fill Port for proxy to be used (the value appears in the video and body email)
+  - <b>PROXY_USERNAME</b> = Fill Username for proxy to be used (the value appears in the video and body email)
+  - <b>PROXY_PASSWORD</b> = Fill Password for proxy to be used (the value appears in the video and body email)
 
 ## Run/test instructions
 ### Local
@@ -22,7 +26,7 @@ This scraper is designed to extract JSON data from the <b>`__PRELOADED_STATE__`<
 ### Hosting
 This API is deployed and runs on Amazon EC2 (AWS) instances to ensure 24/7 availability and stability, suitable for continuous testing.
 
-## Example usage of your API.
+## API usage example
 [GET] http://13.215.161.186:5000/naver?productUrl=<b>YOUR_DETAIL_PRODUCT_URL</b>
 - Example: 
 http://13.215.161.186:5000/naver?productUrl=https://shopping.naver.com/window-products/style/7743753825

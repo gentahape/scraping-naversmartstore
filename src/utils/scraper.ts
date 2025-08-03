@@ -1,5 +1,7 @@
 import axios from "axios"
 import https from 'https';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const userAgents = [
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
@@ -19,10 +21,10 @@ function getRandomUserAgent() {
   return userAgent ?? "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36";
 }
 
-const proxyHost = 'unblock.oxylabs.io';
-const proxyPort = 60000;
-const proxyUsername = 'naversmartstore_HlyFd';
-const proxyPassword = 'naverSmartStoreScraper_123';
+const proxyHost = process.env.PROXY_HOST || '';
+const proxyPort = process.env.PROXY_PORT || '3000';
+const proxyUsername = process.env.PROXY_USERNAME || '';
+const proxyPassword = process.env.PROXY_PASSWORD || '';
 
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
@@ -50,7 +52,7 @@ export async function scraper(url: string) {
         proxy: {
           protocol: 'https',
           host: proxyHost,
-          port: proxyPort,
+          port: parseInt(proxyPort),
           auth: {
             username: proxyUsername,
             password: proxyPassword,
