@@ -21,8 +21,8 @@ function getRandomUserAgent() {
 
 const proxyHost = 'unblock.oxylabs.io';
 const proxyPort = 60000;
-const proxyUsername = 'ianradja_97yTX';
-const proxyPassword = 'ianRadja180_';
+const proxyUsername = 'naversmartstore_HlyFd';
+const proxyPassword = 'naverSmartStoreScraper_123';
 
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
