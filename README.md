@@ -32,19 +32,34 @@ This API is deployed and runs on Amazon EC2 (AWS) instances to ensure 24/7 avail
 http://13.215.161.186:5000/naver?productUrl=https://shopping.naver.com/window-products/style/7743753825
 
 ## Project Structure
+
 ```
 /
-├── `datas/` # Folder to store URL detail & search products
-│   ├── `product-detail-urls.json` # File to store URL product details and URL for testing scraping
-│   ├── `product-search-urls.json` # File to store URL product search and for to getting many product detail URLs
-── `src/` # The main folder for all TS source code
-│   ├── `utils/` # Folder for reusable modules
-│   │   └── `scraper.ts` # The core logic for scraping
-│   ├── `api.ts` # The main entry point for the API Express Server
-│   ├── `scraping-product-detail.ts` # Script for to getting the global variable __PRELOADED_STATE__ from the product details page
-│   ├── `scraping-product-search.ts` # Script for to getting link detail product from the product search page and store to product-search-urls.json file
-│   ├── `testing.ts` # The core logic for scraping testing
-├── `.env.example` # File to store environment variables
-├── `package.json` # Stores project metadata and dependency lists
-├── `tsconfig.json` # Configuration file for TypeScript compiler
+├── datas/
+│   ├── product-detail-urls.json 
+│   ├── product-search-urls.json
+── src/ 
+│   ├── utils/ 
+│   │   └── scraper.ts
+│   ├── api.ts
+│   ├── scraping-product-detail.ts
+│   ├── scraping-product-search.ts
+│   ├── testing.ts
+├── .env.example
+├── package.json 
+├── tsconfig.json 
 ```
+
+- `datas/` Folder to store URL detail & search products
+  - `product-detail-urls.json` File to store URL product details and URL for testing scraping
+  - `product-search-urls.json` File to store URL product search and for to getting many product detail URLs
+- `src/` The main folder for all TS source code
+  - `utils/` Folder for reusable modules
+    - `scraper.ts` The core logic for scraping
+  - `api.ts` The main entry point for the API Express Server
+  - `scraping-product-detail.ts` Script for to getting the global variable __PRELOADED_STATE__ from the product details page
+  - `scraping-product-search.ts` Script for to getting link detail product from the product search page and store to product-search-urls.json file
+  - `testing.ts` The core logic for scraping testing
+- `.env.example` File to store environment variables
+- `package.json` Stores project metadata and dependency lists
+- `tscondif.json` Configuration file for TypeScript compiler
